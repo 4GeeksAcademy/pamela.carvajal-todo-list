@@ -1,12 +1,68 @@
+li {
+  list-style: none;
+  font-family: 'Monserrat' sans-serif;
+  text-align: start;
+  border-color: rgb(209, 209, 209);
+  
 
-/* 
+}
 
-    You can write your own styles here...
-    
-    
-    ...Or you can use the import command to include 
-    other sylesheets into your bunde as well, e.j:
-    
-    import 'relative/path/to/stylesheet.scss';
+.caja {
+  background-color: white;
+  color:rgb(235,216,217);
+  width: 500px;
+  height: 550px;
+  font-family: 'Monserrat' sans-serif;
+  
 
-*/
+
+}
+
+.boton {
+  float: right;
+}
+
+input {
+  border: none;
+  font-family: 'Monserrat' sans-serif;
+
+}
+
+h1 {
+  font-size: 70px;
+  font-weight: lighter;
+
+}
+
+.agregado {
+  text-align: start;
+  bottom: 0%;
+  font-family: 'Monserrat' sans-serif;
+  color: rgb(187, 184, 184);
+
+}
+
+.hojas {
+  background: #fff;
+  box-shadow:
+      0 1px 1px rgba(168, 21, 21, 0.15),
+
+      0 10px 0 -5px #ffffff,
+
+      0 10px 1px -4px rgba(0, 0, 0, 0.15),
+
+      0 20px 0 -10px #ffffff,
+
+      0 20px 1px -9px rgba(0, 0, 0, 0.15);
+
+
+}
+.add{
+  color: rgb(137, 135, 135);
+}
+
+
+
+
+
+
