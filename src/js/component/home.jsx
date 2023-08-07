@@ -1,24 +1,63 @@
 import React, { useState, useEffect } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
-
 //create your first component
 const Home = () => {
-	const [tarea, setTarea] = useState("")
-	const [lista, setLista] = useState(["Desayunar", "Ponerme al día en Jujutsu", "Salir a correr"])
+
+	const [lista, setLista] = useState([])
+
+	useEffect(() => {
+		// fetch data
+		const dataFetch = async () => {
+			const data = await (
+				await fetch('https://playground.4geeks.com/apis/fake/todos/user/pamela', {
+					method: "GET",
+					headers: {
+						"Content-Type": "application/json"
+					}
+				})).json();
+
+			// set state when the data received
+			setLista(data);
+		};
+
+		dataFetch();
+	}, [])
+
+	useEffect(() => {
+		actualizarTodos()
+	}, [lista])
+
+	function actualizarTodos() {
+		fetch('https://playground.4geeks.com/apis/fake/todos/user/pamela', {
+			method: "PUT",
+			body: JSON.stringify(lista),
+			headers: {
+				"Content-Type": "application/json"
+			}
+		})
+			.then(resp => {
+				console.log(resp.ok); // Será true (verdad) si la respuesta es exitosa.
+				console.log(resp.status); // el código de estado = 200 o código = 400 etc.
+				console.log(resp.text()); // Intentará devolver el resultado exacto como cadena (string)
+				return resp.json(); // (regresa una promesa) will try to parse the result as json as return a promise that you can .then for results
+			})
+			.then(data => {
+				//Aquí es donde debe comenzar tu código después de que finalice la búsqueda
+				console.log(data); //esto imprimirá en la consola el objeto exacto recibido del servidor
+			})
+			.catch(error => {
+				//manejo de errores
+				console.log(error);
+			});
+	}
 
 	const handleInput = (e) => {
-		let texto = e.target.value
-		if (e.keyCode == 13) {
-			setTarea(texto)
-			//Una primera aproximación para agregar a la lista es usando una variable auxiliar
-			//let tempArr = lista.slice() //copia de arreglo por valor
-			//tempArr.push(texto)
-			//setLista(tempArr)
+		let tarea = e.target.value
+		if (e.keyCode == 13 && tarea != "") {
 
 			//Una segunda aproximación es usando el operador spread ...
-			setLista([...lista, texto])
+			setLista([...lista, tarea])
+
 		}
 	}
 
@@ -49,7 +88,7 @@ const Home = () => {
 											return <li className=" add list-group-item border" key={index}>
 												{item}
 												<button type="button" className=" boton btn btn-outline-light" onClick={e => { deleteTask(index) }}>
-												<i class="far fa-trash-alt"></i>
+													<i class="far fa-trash-alt"></i>
 												</button>
 											</li>
 										})
@@ -66,8 +105,3 @@ const Home = () => {
 };
 
 export default Home;
-
-
-
-
-
